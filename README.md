@@ -17,7 +17,7 @@ $\bullet η_x+η_p \sim 1~(3)$
 
 with $L_B= \frac{c}{4π} \beta_{rec}  B^2 S$ being the Poynting luminosity and S being the coronal surface.
 
-We fixate $\eta_X=0.5$ and $\eta_p=0.3$. Since for individual sources $L_X$ is an observational quantity, fron eqs.(1) and (2) we can derive $B$ and $L_{p}$ respectively.
+We fixate $\eta_X=0.5$ and $\eta_p=0.3$. Since for individual sources $L_X$ is an observational quantity, from eqs.(1) and (2) we can derive $B$ and $L_{p}$ respectively.
 
 Note: The neutrino luminosity scales linearly with $\eta_p$ (see eq. 3.6 in Karavola et al. (2025)) so the results of this study can be re-rnormalize in respect to different $\eta_p$ values.
 
