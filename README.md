@@ -40,4 +40,5 @@ For any given set of parameter by the user we perform a trilinear interpolation 
 
 ## Outputs
 $\bullet$ The energy bins of the neutrino spectrum are stored in the class as an array named **energ_range** which is in eV (not in logarithm). 
+
 $\bullet$ The class returns the luminosity of the neutrino spectrum in the coronal rest frame in $erg/s$ in logarithm of a base of 10.
