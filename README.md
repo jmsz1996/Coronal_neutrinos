@@ -35,7 +35,7 @@ We have performed 72 runs with the leptohadronic code $ATHE \nu A$ (Dimitrakoudi
 **($log_{10}L_X$, $log_{10}R$, $log_{10}\sigma_{\rm p}$)=([42, 47], [12.4, 14.4], [3, 6])**
 
 
-all in integer steps and cgs units. You can find a visualization of the aforementioned templates under the name "templates.png".
+all in integer steps and cgs units. You can find a visualization of the aforementioned templates under the name "templates.jpg".
 For any given set of parameter by the user we perform a trilinear interpolation between the templates. If any value is outside of the limits mentioned above, the closest value available in the parameter space is used instead.
 
 ## Outputs
