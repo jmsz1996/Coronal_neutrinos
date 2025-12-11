@@ -32,7 +32,7 @@ $\bullet$ the effective radius of the (spherical) corona R in $log_{10}$
 
 We have performed 72 runs with the leptohadronic code $ATHE \nu A$ (Dimitrakoudis et al. (2012)) in the parameter space of 
 
-**($log_{10}L_X$, $log_{10}R$, $log_{10}\sigma_{\rm p}$)=([42, 47], [12.4, 14.4], [3, 6])**
+**$\left(log_{10}L_X, log_{10}R, log_{10}\sigma_{\rm p} \right)=([42, 47], [12.4, 14.4], [3, 6])$**
 
 
 all in integer steps and cgs units. You can find a visualization of the aforementioned templates under the name "templates.jpg".
