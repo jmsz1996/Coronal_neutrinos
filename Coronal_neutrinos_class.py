@@ -6,7 +6,7 @@ class coronal_nu:
     beta_rec, eta_p, eta_ph= [0.1, 0.1, 0.5]
     c_light, m_p, m_e, sigma_T=[3*10**(10), 1.67*10**(-24), 9.1*10**(-28), 6.65*10**(-25)]
     erg_2_eV=5.11*10**5/(m_e*c_light**2)
-    band_cor=3.*np.log(10)/np.log(10/2)
+    # band_cor=3.*np.log(10)/np.log(10/2)
     
     file=pd.read_csv('./templates_sigmap_LX_R.txt', usecols=range(0, 123), header=None)
     templates=np.log10(np.array(file[1:], dtype=float)[:, 3:])
@@ -14,9 +14,11 @@ class coronal_nu:
     sigma_ps, LX, R_eff=np.array(np.unique(np.array(file)[1:, 0]), dtype=int), np.array(np.unique(np.array(file)[1:, 1]), dtype=float), np.array(np.unique(np.array(file)[1:, 2]), dtype=float)
     templates=templates.reshape(len(sigma_ps), len(LX), len(R_eff), templates.shape[-1])
 
-    def __init__(self, sigma_p, L_X, R):
+    def __init__(self, sigma_p, L_X, R, x_ray_parms: dict | None = None):
         self.sigma_p=min(max(sigma_p, min(coronal_nu.sigma_ps)), max(coronal_nu.sigma_ps)) #proton magnetization value in log10
-        self.L_X=min(max(L_X+np.log10(coronal_nu.band_cor), min(coronal_nu.LX)), max(coronal_nu.LX)) #X ray coronal luminosity in the 2-10 keV band in log10
+
+        band_cor = self.band_corr(x_ray_parms)
+        self.L_X=min(max(L_X+np.log10(band_cor), min(coronal_nu.LX)), max(coronal_nu.LX)) #X ray coronal luminosity in the 2-10 keV band in log10
         self.R=min(max(R, min(coronal_nu.R_eff)), max(coronal_nu.R_eff)) #R_eff in log10
 
     def neutrino_spectrum(self):
@@ -54,4 +56,33 @@ class coronal_nu:
         inter_spec=np.sum(weights[:, np.newaxis]*spectra_stack, axis=0)  
         
         return inter_spec
+    
+    def band_corr(self,x_ray_params):
+
+        e1_in = (x_ray_params or {}).get('e1_in', 2.)
+        e2_in = (x_ray_params or {}).get('e2_in', 10.)
+        gamma_in = (x_ray_params or {}).get('gamma_in', 2.)
+        e1_out = (x_ray_params or {}).get('e1_out', 0.1)
+        e2_out = (x_ray_params or {}).get('e2_out', 100.)
+        gamma_out = (x_ray_params or {}).get('gamma_out', 2.)
+        
+        if gamma_in < 0 or gamma_out < 0:
+            raise ValueError('Both gamma_in and gamma_out should be positive.')
+        
+        if gamma_in == gamma_out == 2:
+            band_cor=np.log(e2_out/e1_out)/np.log(e2_in/e1_in)
+
+        else:
+            if gamma_out != 2:
+                out_integral = (e2_out**(-gamma_out+2)-e1_out**(-gamma_out+2)) / (-gamma_out+2)
+            else:
+                out_integral = np.log(e2_out/e1_out)
+            if gamma_in != 2:
+                in_integral = (e2_in**(-gamma_in+2)-e1_in**(-gamma_in+2)) / (-gamma_in+2)
+            else:
+                in_integral = np.log(e2_in/e1_in)
+                
+            band_cor = out_integral / in_integral
+
+        return band_cor
                 
